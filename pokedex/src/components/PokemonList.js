@@ -21,7 +21,7 @@ const PokemonList = () => {
             console.log(res.data.results)
         }
         fetchPosts();
-    }, [currentPage]);
+    }, []);
     
     //Get pokemon based on posts per page (will display 50 pokemon)
     const indexOfLastPokemon = currentPage * postsPerPage;
@@ -45,7 +45,7 @@ const PokemonList = () => {
 
             {
                 totalResults > postsPerPage 
-                ? <PaginationRender postsPerPage={postsPerPage} totalPosts={totalResults} paginate={paginate} />
+                ? <PaginationRender postsPerPage={postsPerPage} totalPosts={totalResults} paginate={paginate} currentPage={currentPage} />
                 : ''
             }
         </>

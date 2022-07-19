@@ -1,6 +1,6 @@
 import { Pagination } from "react-bootstrap";
 
-const PaginationRender = ({ postsPerPage, totalPosts, paginate }) => {
+const PaginationRender = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
 
     const pageNumbers = [];
 
