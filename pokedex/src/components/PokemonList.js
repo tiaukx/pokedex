@@ -21,8 +21,10 @@ const PokemonList = () => {
             console.log(res.data.results)
         }
         fetchPosts();
+
     }, []);
-    
+
+        
     //Get pokemon based on posts per page (will display 50 pokemon)
     const indexOfLastPokemon = currentPage * postsPerPage;
     const indexOfFirstPokemon = indexOfLastPokemon - postsPerPage;
@@ -31,6 +33,9 @@ const PokemonList = () => {
     //change page
     const paginate = (pageNumber) => {
         setCurrentPage(pageNumber);
+
+        indexOfFirstPokemon += (50 * pageNumber);
+        indexOfLastPokemon += (50 * pageNumber);
     }
     
     return (
@@ -38,8 +43,9 @@ const PokemonList = () => {
             <Container id='fullPokemonList' className="d-flex vw-100">
                 <Row className="m-auto">
                     {
-                        currentPokemon.map((pokemons, index) => <Pokemon key={index + 1} id={index + 1} name={pokemons.name} sprites={pokemons.sprites} />)
+                        currentPokemon.map((pokemons, index) => <Pokemon key={pokemons.name} name={pokemons.name} />)
                     }
+                    
                 </Row>
             </Container>
 

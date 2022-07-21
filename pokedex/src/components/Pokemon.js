@@ -1,14 +1,29 @@
 import { Card } from "react-bootstrap";
-import PropTypes from 'prop-types';
+import { useState, useEffect } from "react";
 
-const Pokemon = ({id, name}) => {
+import PropTypes from 'prop-types';
+import axios from "axios";
+
+const Pokemon = ({name}) => {
+    
+    const [pokemonData, setPokemonData] = useState({});
+
+    useEffect(() => {
+        const getPokemon = async () => {
+            const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
+            setPokemonData(res.data);
+        }
+        getPokemon();
+        console.log(pokemonData)
+    }, [name])
+
     return (
         <>
             <Card border="dark" style={{ width: '15rem' }}>
-                <Card.Img variant='top' src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`} />
+                <Card.Img variant='top' src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonData.id}.png`} />
                 <Card.Header></Card.Header>
                 <Card.Body>
-                    <p>{id} {name}</p>
+                    <p>{pokemonData.id} {name}</p>
                 </Card.Body>
             </Card>
         </>

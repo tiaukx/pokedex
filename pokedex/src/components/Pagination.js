@@ -21,6 +21,7 @@ const PaginationRender = ({ postsPerPage, totalPosts, paginate, currentPage }) =
                 </li>
             ))}
 
+
             <Pagination.Next />
             <Pagination.Last />
         </Pagination>
