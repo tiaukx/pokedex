@@ -5,25 +5,66 @@ const PaginationRender = ({ postsPerPage, totalPosts, paginate, currentPage }) =
     const pageNumbers = [];
 
     for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+        //gets the total number of pages and stores them in an array
         pageNumbers.push(i);
+    }
+
+    //states how many numbers will show on either side of active page
+    const siblingCount = 2;
+
+    const leftDots = () => {
+        if (currentPage > pageNumbers[0] + siblingCount) {
+            return <Pagination.Ellipsis onClick={() => paginate(currentPage -= (siblingCount + 1))} />;
+        }
+    }
+
+    const rightDots = () => {
+        if (currentPage < pageNumbers.length - siblingCount) {
+            return <Pagination.Ellipsis onClick={() => paginate(currentPage += (siblingCount + 1))} />;
+        }
+    }
+
+    const limitToSibling = () => {
+        
+        const siblingArray = [];
+
+        //lower numbers
+        for (let i = currentPage - siblingCount; i < currentPage && i >= 0; i++) {
+            //if not added loop cancels when you reach 0, meaning it wouldn't if current page minus sibling count goes below 0
+            if(i < 1) continue;
+            siblingArray.push(
+                <li key={i} className={`page-item`}>
+                    <a onClick={() => paginate(i)} href="#" className="page-link">
+                        {i}
+                    </a>
+                </li>);
+        }
+        
+        //higher numbers
+        for (let i = currentPage; i <= (currentPage + siblingCount) && i <= pageNumbers.length; i++) {
+            let active = currentPage === i ? 'active' : '';
+            siblingArray.push(
+                <li key={i} className={`page-item ${active}`}>
+                    <a onClick={() => paginate(i)} href="#" className="page-link">
+                        {i}
+                    </a>
+                </li>);
+        }
+
+        return siblingArray;
     }
 
     return (
         <Pagination className='justify-content-center'>
-            <Pagination.First />
-            <Pagination.Prev />
+            <Pagination.First onClick={() => paginate(currentPage = 1)} />
+            <Pagination.Prev onClick={() => paginate(currentPage - 1)} />
 
-            {pageNumbers.map(num => (
-                <li key={num} className="page-item">
-                    <a onClick={() => paginate(num)} href="#" className="page-link">
-                        {num}
-                    </a>
-                </li>
-            ))}
+            {leftDots()}
+            {limitToSibling()}
+            {rightDots()}
 
-
-            <Pagination.Next />
-            <Pagination.Last />
+            <Pagination.Next onClick={() => paginate(currentPage + 1)} />
+            <Pagination.Last onClick={() => paginate(currentPage = pageNumbers.length)} />
         </Pagination>
     )
 
