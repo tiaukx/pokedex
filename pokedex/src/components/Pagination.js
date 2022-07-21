@@ -10,14 +10,16 @@ const PaginationRender = ({ postsPerPage, totalPosts, paginate, currentPage }) =
     }
 
     //states how many numbers will show on either side of active page
-    const siblingCount = 2;
+    const siblingCount = 5;
 
+    //renders ellipses on pagination bar when currentPage is larger than 1 + sibling count
     const leftDots = () => {
         if (currentPage > pageNumbers[0] + siblingCount) {
             return <Pagination.Ellipsis onClick={() => paginate(currentPage -= (siblingCount + 1))} />;
         }
     }
 
+    //renders ellipses on pagination bar when currentPage is smaller than the last page minus sibling count
     const rightDots = () => {
         if (currentPage < pageNumbers.length - siblingCount) {
             return <Pagination.Ellipsis onClick={() => paginate(currentPage += (siblingCount + 1))} />;
@@ -25,7 +27,7 @@ const PaginationRender = ({ postsPerPage, totalPosts, paginate, currentPage }) =
     }
 
     const limitToSibling = () => {
-        
+        //temp array to store numbers to be displayed
         const siblingArray = [];
 
         //lower numbers

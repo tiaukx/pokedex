@@ -3,18 +3,15 @@ import axios from 'axios';
 
 import Pokemon from "./Pokemon";
 import PaginationRender from "./Pagination";
-import GenFilter from "./GenFilter";
 
 import { Container, Row } from "react-bootstrap";
 
-const PokemonList = (props) => {
+const PokemonList = () => {
 
     const [pokemon, setPokemon] = useState([]);
     const [totalResults, setTotalResults] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(50);
-
-    const { id } = props;
+    const [postsPerPage] = useState(20);
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -26,8 +23,6 @@ const PokemonList = (props) => {
         fetchPosts();
 
     }, []);
-
-
 
     //Get pokemon based on posts per page (will display however many pokemon specified in postsPerPage useState)
     const indexOfLastPokemon = currentPage * postsPerPage;
@@ -48,8 +43,6 @@ const PokemonList = (props) => {
                     }
                 </Row>
             </Container>
-
-
 
             {
                 totalResults > postsPerPage
