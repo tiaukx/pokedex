@@ -15,7 +15,8 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route exact path="/" element={<Home />} />
-            <Route exact path="./components/Favourites" element={<Favourites />} />
+            <Route exact path="/Favourites" element={<Favourites />} />
+            {/* <Route exact path="/Search" element={<Favourites />} /> */}
             <Route path="*" element={<NotFound />} ></Route>
           </Routes>
         </BrowserRouter>

@@ -1,4 +1,4 @@
-import { Card } from "react-bootstrap";
+import { Button, Card, Modal } from "react-bootstrap";
 import { useState, useEffect } from "react";
 
 import PropTypes from 'prop-types';
@@ -35,11 +35,11 @@ const Pokemon = ({ name }) => {
     //initialise types of pokemon
     let type1 = types[0];
     let type2 = "";
-    
+
     //if there is a second type in types array assign the value to type2
     if (types[1]) {
         type2 = types[1]
-    //if there is not a second value in array, assign type2 to the first value (same as type1)
+        //if there is not a second value in array, assign type2 to the first value (same as type1)
     } else {
         type2 = types[0]
     };
@@ -51,12 +51,17 @@ const Pokemon = ({ name }) => {
                 <Card.Header></Card.Header>
                 <Card.Body>
                     <p>{`#${pokemonData.id}`} {pokemonName}</p>
+
+
                     <p>
                         {type1[0].toUpperCase() + type1.slice(1)}
                         {' '}
                         {/* if type1 and type2 are the same, don't render type2 to screen */}
-                        {(type1 === type2) ? <></> : type2[0].toUpperCase() + type2.slice(1)} 
+                        {(type1 === type2) ? <></> : type2[0].toUpperCase() + type2.slice(1)}
                     </p>
+
+                    <Button variant='danger' className='rounded-circle' ><i className="fa-solid fa-heart"></i></Button>
+
                 </Card.Body>
             </Card>
         </>

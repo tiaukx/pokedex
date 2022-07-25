@@ -57,6 +57,7 @@ const PaginationRender = ({ postsPerPage, totalPosts, paginate, currentPage }) =
     }
 
     return (
+        
         <Pagination className='justify-content-center'>
             <Pagination.First onClick={() => paginate(currentPage = 1)} />
             <Pagination.Prev onClick={() => paginate(currentPage - 1)} />
