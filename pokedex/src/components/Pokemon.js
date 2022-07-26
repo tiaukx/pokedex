@@ -1,31 +1,33 @@
-import { Button, Card, Modal } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import { useState, useEffect } from "react";
 
 import PropTypes from 'prop-types';
 import axios from "axios";
 
-const Pokemon = ({ name }) => {
+const Pokemon = (props) => {
 
     const [pokemonData, setPokemonData] = useState({});
     const [loading, setLoading] = useState(true);
 
+    const [addedtoFave, setAddedtoFave] = useState(false);
+
     useEffect(() => {
         const getPokemon = async () => {
             //use the name prop to get expanded details of the pokemon
-            const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
+            const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${props.name}`);
             setPokemonData(res.data);
             //once loaded, gets rid of loading symbol and returns the completed card
             setLoading(false);
         }
         //call the getPokemon function we used above
         getPokemon();
-    }, [name])
+    }, [props.name])
 
     //whilst loading returns a loading symbol instead of empty cards - fontAwesome used for image
     if (loading) return <h4><i className="fa-solid fa-spinner"></i></h4>;
 
     //capitalises the first letter of the name
-    const pokemonName = name[0].toUpperCase() + name.slice(1);
+    const pokemonName = props.name[0].toUpperCase() + props.name.slice(1);
 
     //gets the types from the pokemon
     const types = pokemonData.types.map(item => {
@@ -44,6 +46,19 @@ const Pokemon = ({ name }) => {
         type2 = types[0]
     };
 
+    const favePoke = [];
+
+    const addToFave = () => {
+        if (addedtoFave === true) {
+            setAddedtoFave(false);
+            favePoke.slice(pokemonData)
+        } else {
+            setAddedtoFave(true);
+            favePoke.push(pokemonData)
+        }
+        return favePoke;
+    };
+
     return (
         <>
             <Card style={{ width: '15rem' }}>
@@ -51,8 +66,6 @@ const Pokemon = ({ name }) => {
                 <Card.Header></Card.Header>
                 <Card.Body>
                     <p>{`#${pokemonData.id}`} {pokemonName}</p>
-
-
                     <p>
                         {type1[0].toUpperCase() + type1.slice(1)}
                         {' '}
@@ -60,8 +73,7 @@ const Pokemon = ({ name }) => {
                         {(type1 === type2) ? <></> : type2[0].toUpperCase() + type2.slice(1)}
                     </p>
 
-                    <Button variant='danger' className='rounded-circle' ><i className="fa-solid fa-heart"></i></Button>
-
+                    {<Button variant={addedtoFave === false ? 'primary' : 'danger'} className='rounded-circle' onClick={addToFave} ><i className="fa-solid fa-heart"></i></Button>}
                 </Card.Body>
             </Card>
         </>

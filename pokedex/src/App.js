@@ -4,6 +4,7 @@ import Navi from "./components/Navi";
 import Home from "./components/Home";
 import Favourites from "./components/Favourites";
 import NotFound from "./components/NotFound";
+import Search from "./components/Search";
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route exact path="/Favourites" element={<Favourites />} />
-            {/* <Route exact path="/Search" element={<Favourites />} /> */}
+            <Route exact path="/Search" element={<Search />} />
             <Route path="*" element={<NotFound />} ></Route>
           </Routes>
         </BrowserRouter>

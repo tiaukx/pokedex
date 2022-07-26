@@ -13,6 +13,8 @@ const PokemonList = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage] = useState(20);
 
+
+
     useEffect(() => {
         const fetchPosts = async () => {
             const res = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=898`);
@@ -43,7 +45,7 @@ const PokemonList = () => {
                     }
                 </Row>
             </Container>
-
+            <br/>
             {
                 totalResults > postsPerPage
                     ? <PaginationRender postsPerPage={postsPerPage} totalPosts={totalResults} paginate={paginate} currentPage={currentPage} />

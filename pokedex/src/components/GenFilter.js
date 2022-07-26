@@ -12,6 +12,16 @@ const GenFilter = (props) => {
         setId({ startId: start, endId: end })
     }
 
+    // const pokeId = () => {
+    //     let pokemon = []
+    //      for (let i = id.startId; i <= id.endId; i++ ) {
+           
+    //         pokemon.push(<PokeCard id={i} />)
+           
+    //      }
+    //      return pokemon
+    // }
+
     return (
         <Navbar className='justify-content-center'>
             <Button className='genButton' variant="danger" onClick={() => updateGen(1, 151)} >Gen 1</Button>
