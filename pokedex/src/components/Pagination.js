@@ -31,26 +31,19 @@ const PaginationRender = ({ postsPerPage, totalPosts, paginate, currentPage }) =
         const siblingArray = [];
 
         //lower numbers
-        for (let i = currentPage - siblingCount; i < currentPage && i >= 0; i++) {
+        for (let i = currentPage - siblingCount; i < currentPage; i++) {
             //if not added loop cancels when you reach 0, meaning it wouldn't if current page minus sibling count goes below 0
             if(i < 1) continue;
             siblingArray.push(
-                <li key={i} className={`page-item`}>
-                    <a onClick={() => paginate(i)} href="#" className="page-link">
-                        {i}
-                    </a>
-                </li>);
+                <Pagination.Item key={i} className={`page-item`} onClick={() => paginate(i)} >{i}</Pagination.Item>);
         }
         
         //higher numbers
         for (let i = currentPage; i <= (currentPage + siblingCount) && i <= pageNumbers.length; i++) {
             let active = currentPage === i ? 'active' : '';
             siblingArray.push(
-                <li key={i} className={`page-item ${active}`}>
-                    <a onClick={() => paginate(i)} href="#" className="page-link">
-                        {i}
-                    </a>
-                </li>);
+                <Pagination.Item key={i} className={`page-item ${active}`} onClick={() => paginate(i)} >{i}</Pagination.Item>
+            )
         }
 
         return siblingArray;
@@ -58,7 +51,7 @@ const PaginationRender = ({ postsPerPage, totalPosts, paginate, currentPage }) =
 
     return (
         
-        <Pagination className='justify-content-center'>
+        <Pagination className='justify-content-center' >
             <Pagination.First onClick={() => paginate(currentPage = 1)} />
             <Pagination.Prev onClick={() => paginate(currentPage - 1)} />
 

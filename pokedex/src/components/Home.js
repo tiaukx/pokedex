@@ -1,12 +1,11 @@
-import GenFilter from "./GenFilter";
+// import GenFilter from "./GenFilter";
 import PokemonList from "./PokemonList";
-import SearchBar from "./SearchBar";
 
 const Home = () => {
 
     return (
         <>
-            <GenFilter/>
+            {/* <GenFilter/> */}
             <PokemonList />
         </>
 
