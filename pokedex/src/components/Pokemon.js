@@ -152,7 +152,7 @@ const Pokemon = (props) => {
             </Card>
 
             {/* when user clicks on card will load up more details about pokemon */}
-            <Modal show={show} onHide={handleShow} centered dialogClassName="Modal">
+            <Modal show={show} size='xl' onHide={handleShow} centered dialogClassName="Modal">
                 <Modal.Header>
                     <Modal.Title>
                         <div className="modal-title">
