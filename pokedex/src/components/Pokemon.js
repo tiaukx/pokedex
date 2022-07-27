@@ -123,20 +123,31 @@ const Pokemon = (props) => {
 
     return (
         <>
-            <Card style={{ width: '15rem' }} onClick={handleShow}>
+            <Card style={{ width: '16rem' }} >
                 <Card.Img variant='top' src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonData.id}.png`} />
                 <Card.Header></Card.Header>
                 <Card.Body>
-                    <p>{`#${pokemonData.id}`} {pokemonName}</p>
-                    <p>
-                        {/* gets the icon for the type of the pokemon via the pokemonIcon object */}
-                        {<img className="type-icon" src={pokemonIcon[type1]} alt={`${type1}`} style={{ width: '2rem' }} />}{' '}
-                        {type1[0].toUpperCase() + type1.slice(1)}{' '}
-                        {/* if type1 and type2 are the same, don't render type2 to screen */}
-                        {type1 === type2 ? <></> : <img className="type-icon" src={pokemonIcon[type2]} alt={`${type2}`} style={{ width: '2rem' }} />}{' '}
-                        {(type1 === type2) ? <></> : type2[0].toUpperCase() + type2.slice(1)}
-                    </p>
-                    {<Button variant={addedtoFave === false ? 'primary' : 'danger'} className='rounded-circle' onClick={addToFave} ><i className="fa-solid fa-heart"></i></Button>}
+                    <Row className="">
+                        <h5>{`#${pokemonData.id}`} {pokemonName}</h5>
+                    </Row>
+                    <Row className="">
+                        <p className="types">
+                            {/* gets the icon for the type of the pokemon via the pokemonIcon object */}
+                            <img className="type-icon" src={pokemonIcon[type1]} alt={`${type1}`} style={{ width: '2rem' }} onClick={handleShow} />{' '}
+                            {type1[0].toUpperCase() + type1.slice(1)}{' '}
+                            {/* if type1 and type2 are the same, don't render type2 to screen */}
+                            {type1 === type2 ? <></> : <img className="type-icon" src={pokemonIcon[type2]} alt={`${type2}`} style={{ width: '2rem' }} />}{' '}
+                            {(type1 === type2) ? <></> : type2[0].toUpperCase() + type2.slice(1)}
+                        </p>
+                    </Row>
+                    <Row className="m-auto">
+                        <Col xs={4}>
+                            <Button variant={addedtoFave === false ? 'primary' : 'danger'} className='rounded-circle' onClick={addToFave} ><i className="fa-solid fa-heart"></i></Button>
+                        </Col>
+                        <Col >
+                            <Button onClick={handleShow}>See More</Button>
+                        </Col>
+                    </Row>
                 </Card.Body>
             </Card>
 
@@ -161,10 +172,10 @@ const Pokemon = (props) => {
                 </Modal.Header>
                 <Modal.Body>
                     <Container id='pokemonInfo' className="fluid">
-                        <Row>
+                        <Row className='m-auto'>
                             <Col>
                                 <div>
-                                    <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonData.id}.png`} alt={pokemonName} />
+                                    <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonData.id}.png`} alt={pokemonName} style={{ border: '5px solid black' }} />
                                 </div>
                             </Col>
                             <Col>
