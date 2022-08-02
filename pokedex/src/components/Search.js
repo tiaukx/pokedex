@@ -30,7 +30,7 @@ const Search = () => {
     return (
         <>
             <SearchBar handlesubmit={handleSubmit} handleChange={handleChange} />
-
+            <br/>
             {
                 searchTerm === ''
                     ? <></>

@@ -1,17 +1,23 @@
+import { Form, Row, Col, Button, Container } from 'react-bootstrap';
+
 const SearchBar = (props) => {
 
     return (
-        <div className='container'>
-            <div className='row'>
-                    <form action='' onSubmit={props.handleSubmit} >
-                        <div className='input-field'>
-                            <label>Name or Number</label><br/>
-                            <input type='text' onChange={props.handleChange}/>
-                            <i className="fa-solid fa-magnifying-glass" onClick={props.handleSubmit}></i>
-                        </div>
-                    </form>
-            </div>
-        </div>
+        <>
+            <br />
+            <Container fluid className='d-flex justify-content-center vw-100'>
+                <Form onSubmit={props.handleSubmit} >
+                    <Row className='m-auto' >
+                        <Col xs={9} >
+                            <Form.Control placeholder='Name or Number' onChange={props.handleChange} />
+                        </Col>
+                        <Col>
+                            <Button className='rounded-circle' ><i className="fa-solid fa-magnifying-glass"></i></Button>
+                        </Col>
+                    </Row>
+                </Form>
+            </Container>
+        </>
     )
 };
 
