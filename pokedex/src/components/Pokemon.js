@@ -22,6 +22,7 @@ import psychicIcon from '../pokemon-type-icons/psychic-icon.png';
 import rockIcon from '../pokemon-type-icons/rock-icon.png';
 import steelIcon from '../pokemon-type-icons/steel-icon.png';
 import waterIcon from '../pokemon-type-icons/water-icon.png';
+import UpdateFavourite from "./UpdateFavourite";
 
 
 const Pokemon = (props) => {
@@ -29,7 +30,7 @@ const Pokemon = (props) => {
     const [pokemonData, setPokemonData] = useState({});
     const [loading, setLoading] = useState(true);
 
-    const [addedtoFave, setAddedtoFave] = useState(false);
+    // const [addedtoFave, setAddedtoFave] = useState(false);
 
     const [show, setShow] = useState(false);
     const handleShow = () => setShow(!show);
@@ -108,18 +109,18 @@ const Pokemon = (props) => {
         ability3 = pokemonData.abilities[2].ability.name;
     }
 
-    const favePoke = [];
+    // const favePoke = [];
 
-    const addToFave = () => {
-        if (addedtoFave === true) {
-            setAddedtoFave(false);
-            favePoke.slice(pokemonData)
-        } else {
-            setAddedtoFave(true);
-            favePoke.push(pokemonData)
-        }
-        return favePoke;
-    };
+    // const addToFave = () => {
+    //     if (addedtoFave === true) {
+    //         setAddedtoFave(false);
+    //         favePoke.slice(pokemonData)
+    //     } else {
+    //         setAddedtoFave(true);
+    //         favePoke.push(pokemonData)
+    //     }
+    //     return favePoke;
+    // };
 
     return (
         <>
@@ -142,7 +143,7 @@ const Pokemon = (props) => {
                     </Row>
                     <Row className="m-auto">
                         <Col xs={4}>
-                            <Button variant={addedtoFave === false ? 'primary' : 'danger'} className='rounded-circle' onClick={addToFave} ><i className="fa-solid fa-heart"></i></Button>
+                            <UpdateFavourite name={props.name} />
                         </Col>
                         <Col >
                             <Button onClick={handleShow}>See More</Button>

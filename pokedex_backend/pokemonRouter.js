@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const Pokemon = require('./server');
+const Pokemon = require('./db');
 
 router.get('/readAll', (req, res, next) => {
     Pokemon.find()
@@ -15,15 +15,18 @@ router.get('/read/:id', (req, res, next) => {
 });
 
 router.post('/create', (req, res, next) => {
-    const newPokemon = req.body;
-    Pokemon.create(newPokemon)
-        .then((result) => res.status(201).send(result))
+    console.log(req.body.name);
+    const newPokemon = new Pokemon({name: req.body.name});
+    console.log(newPokemon);
+    newPokemon.save()
+        .then((result) => res.status(201).send('successful'))
         .catch((err) => next(err));
 });
 
-router.delete('/remove/:id', (req, res, next) => {
-    const id = req.params.id;
-    Pokemon.findByIdAndDelete(id)
+//deletes records based on name parameter
+router.delete('/remove', (req, res, next) => {
+    const removePokemon = new Pokemon({name: req.body.name});
+    Pokemon.findOneAndDelete(removePokemon)
         .then(() => res.status(204).send())
         .catch((err) => next(err));
 });

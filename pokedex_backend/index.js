@@ -9,17 +9,12 @@ app.use(express.json());
 
 const pokemonRouter = require('./pokemonRouter')
 
-app.use((req, res, next) => {
-    const logEntry = `host: ${req.host}
-    ip: ${req.ip}
-    method: ${req.method}
-    path: ${req.path}
-    time: ${new Date()}`;
-    console.loh(logEntry);
-    next();
-})
+mongoose.connect('mongodb://localhost:27017/pokemon', {useNewUrlParser: true}, (err) => {
+    if (err) return console.log(err);
+    return console.log('Connection successful');
+});
 
-app.use('./pokemonRouter', pokemonRouter);
+app.use('/pokemon', pokemonRouter);
 
 app.use('*', (req, res, next) => next({status: 404, message:'Invalid url'})); //catches 404s
 

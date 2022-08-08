@@ -1,21 +1,11 @@
-const { default: mongoose } = require('mongoose');
-const mongose = require('mongoose');
+const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
-
-mongoose.connect('mongodb://localhost:27017/pokedexTeam', {useNewUrlParser: true}, (err) => {
-    if (err) return console.log(err);
-    return console.log('Connection successful');
-});
-
-const pokemonSchema = new Schema ({
+const Pokemon = new mongoose.Schema ({
     name: {
         type: String,
-        min: 2,
         required: true,
+        unique: true
     }
 });
 
-const Pokemon = mongoose.model('pokemon', pokemonSchema);
-
-module.exports = Pokemon;
+module.exports = mongoose.model('pokemon-team', Pokemon);
