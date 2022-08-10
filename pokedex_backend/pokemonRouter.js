@@ -15,7 +15,7 @@ router.get('/read/:id', (req, res, next) => {
 });
 
 router.post('/create', (req, res, next) => {
-    console.log(req.body.name);
+    // console.log(req.body.name);
     const newPokemon = new Pokemon({name: req.body.name});
     console.log(newPokemon);
     newPokemon.save()

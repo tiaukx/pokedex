@@ -13,14 +13,12 @@ const PokemonList = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage] = useState(20);
 
-
-
     useEffect(() => {
         const fetchPosts = async () => {
             const res = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=898`);
             setPokemon(res.data.results);
             setTotalResults(res.data.results.length)
-            console.log(res.data.results)
+            // console.log(res.data.results)
         }
         fetchPosts();
 

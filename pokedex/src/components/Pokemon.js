@@ -30,8 +30,6 @@ const Pokemon = (props) => {
     const [pokemonData, setPokemonData] = useState({});
     const [loading, setLoading] = useState(true);
 
-    // const [addedtoFave, setAddedtoFave] = useState(false);
-
     const [show, setShow] = useState(false);
     const handleShow = () => setShow(!show);
 
@@ -108,19 +106,6 @@ const Pokemon = (props) => {
         ability2 = pokemonData.abilities[1].ability.name;
         ability3 = pokemonData.abilities[2].ability.name;
     }
-
-    // const favePoke = [];
-
-    // const addToFave = () => {
-    //     if (addedtoFave === true) {
-    //         setAddedtoFave(false);
-    //         favePoke.slice(pokemonData)
-    //     } else {
-    //         setAddedtoFave(true);
-    //         favePoke.push(pokemonData)
-    //     }
-    //     return favePoke;
-    // };
 
     return (
         <>

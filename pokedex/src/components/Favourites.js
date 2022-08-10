@@ -1,18 +1,28 @@
-
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Container, Row } from "react-bootstrap";
+import Pokemon from "./Pokemon";
 
 const Favourites = () => {
     
-    
+    const [faves, setFaves] = useState([]);
+
+    useEffect(() => {
+        axios.get('http://localhost:1995/pokemon/readAll')
+        .then(res => setFaves(res.data))
+        .catch(err => console.error(err));
+    }, []);
 
     return (
         <>
-            {/* <Container id='fullPokemonList' className="d-flex vw-100">
+            {/* {console.log(faves)} */}
+            <Container id='fullPokemonList' className="d-flex vw-100">
                 <Row className="m-auto">
                     {
-                        favList.map((pokemons) => <Pokemon key={pokemons.name} name={pokemons.name}/>)
+                        faves.map((pokemons) => <Pokemon key={pokemons.name} name={pokemons.name}/>)
                     }
                 </Row>
-            </Container> */}
+            </Container>
         </>
     )
 }
