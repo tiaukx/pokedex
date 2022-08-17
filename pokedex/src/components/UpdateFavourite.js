@@ -6,19 +6,26 @@ const AddNewFave = (props) => {
 
     const [addRequest, setAddRequest] = useState(false);
     const [faves, setFaves] = useState([]);
-    
+    const [id, setId] = useState('');
+
     useEffect(() => {
         axios.get('http://localhost:1995/pokemon/readAll')
             .then(res => setFaves(res.data))
-            .then(() => {
-                for (let i of faves) {
-                    if (i.name === props.name) {
-                        setAddRequest(true)
-                    }
-                }
-            })
             .catch(err => console.error(err));
-    }, [props.name, faves]);
+    }, []);
+
+    const getID = (name) => {
+        for (let i = 0; i < faves.length; i++) {
+            if (name === faves[i].name) {
+                setAddRequest(true);
+                setId(faves[i]._id);
+            }
+        }
+    }
+
+    if (!addRequest) {
+        getID(props.name);
+    }
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -33,7 +40,7 @@ const AddNewFave = (props) => {
                 })
                 .catch(err => console.error(err))
         } else {
-            axios.delete('http://localhost:1995/pokemon/remove/', props.name)
+            axios.delete('http://localhost:1995/pokemon/remove/' + id)
                 .then((res) => {
                     console.log(res);
                     setAddRequest(false);

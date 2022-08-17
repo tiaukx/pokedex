@@ -11,11 +11,10 @@ const Favourites = () => {
         axios.get('http://localhost:1995/pokemon/readAll')
         .then(res => setFaves(res.data))
         .catch(err => console.error(err));
-    }, []);
+    }, [faves]);
 
     return (
         <>
-            {/* {console.log(faves)} */}
             <Container id='fullPokemonList' className="d-flex vw-100">
                 <Row className="m-auto">
                     {
