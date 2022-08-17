@@ -7,23 +7,21 @@ router.get('/readAll', (req, res, next) => {
         .catch((err) => next(err));
 });
 
-router.get('/read/:name', (req, res, next) => {
-    const newPokemon = new Pokemon({name: req.body.name});
-    Pokemon.findOne(newPokemon)
+router.get('/read/:id', (req, res, next) => {
+    const id = req.params.id;
+    Pokemon.findById(id)
         .then((result) => res.send(result))
         .catch((err) => next(err));
 });
 
 router.post('/create', (req, res, next) => {
-    // console.log(req.body.name);
     const newPokemon = new Pokemon({name: req.body.name});
-    console.log(newPokemon);
     newPokemon.save()
         .then((result) => res.status(201).send('successful'))
         .catch((err) => next(err));
 });
 
-//deletes records based on name parameter
+//deletes records based on ID parameter
 router.delete('/remove/:id', (req, res, next) => {
     const id = req.params.id;
     Pokemon.findByIdAndDelete(id)

@@ -21,7 +21,6 @@ const PokemonList = () => {
             // console.log(res.data.results)
         }
         fetchPosts();
-
     }, []);
 
     //Get pokemon based on posts per page (will display however many pokemon specified in postsPerPage useState)
