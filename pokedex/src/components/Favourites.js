@@ -15,6 +15,11 @@ const Favourites = () => {
 
     return (
         <>
+            <br/>
+            <div className="d-flex justify-content-center">
+                <h4>Favourite Pokémon</h4>
+            </div>
+            <br/>
             <Container id='fullPokemonList' className="d-flex vw-100">
                 <Row className="m-auto">
                     {

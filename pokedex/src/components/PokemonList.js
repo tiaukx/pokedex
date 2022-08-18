@@ -17,21 +17,28 @@ const PokemonList = () => {
         endId: 898,
     })
 
+    //automatically updates pokemon list when filtered by generation 
     useEffect(() => {
         const pokeId = async () => {
+            //temporary array
             let pokemonList = []
+            //loops through startId and endId, depending on if generation filter has been applied
             for (let i = id.startId; i <= id.endId; i++) {
                 pokemonList.push(i)
             }
+            //pushes temp array values to pokemon array
             setPokemon(pokemonList)
+            //sets total results length for pagination
             setTotalResults(pokemonList.length)
             return pokemonList;
         }
         pokeId();
     }, [id]);
 
+    //function passed through to genFilter to change what pokemon are displayed - based on ID values
     function updateGen(start, end) {
         setId({ startId: start, endId: end })
+        //resets current page to 1 so pagination doesn't break when filter button has changed
         setCurrentPage(1);
     }
 

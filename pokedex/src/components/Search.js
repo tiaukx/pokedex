@@ -8,12 +8,14 @@ import SearchBar from "./SearchBar";
 const Search = () => {
 
     const [searchTerm, setSearchTerm] = useState('');
-    const [getPokemon, setPokemon] = useState('');
+    const [getPokemonName, setPokemonName] = useState('');
+    const [getPokemonId, setPokemonId] = useState()
 
     useEffect(() => {
         const fetchPosts = async () => {
             const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${searchTerm}`);
-            setPokemon(res.data.name);
+            setPokemonName(res.data.name);
+            setPokemonId(res.data.id)
         }
         fetchPosts();
     }, [searchTerm]);
@@ -36,7 +38,7 @@ const Search = () => {
                     ? <></>
                     : <Container id='pokemonResult' className="d-flex vw-100">
                         <Row className="m-auto">
-                            <Pokemon key={getPokemon} name={getPokemon} />
+                            <Pokemon key={getPokemonId} name={getPokemonName} id={getPokemonId} />
                         </Row>
                     </Container>
             }

@@ -1,4 +1,4 @@
-import { Button, Card, Modal, Container, Row, Col } from "react-bootstrap";
+import { Button, Card, Modal, Container, Row, Col, Spinner } from "react-bootstrap";
 import { useState, useEffect } from "react";
 
 import axios from "axios";
@@ -66,8 +66,10 @@ const Pokemon = (props) => {
         water: waterIcon,
     };
 
-    //whilst loading returns a loading symbol instead of empty cards - fontAwesome used for image
-    if (loading) return <h4><i className="fa-solid fa-spinner"></i></h4>;
+    //whilst loading returns a loading symbol animation instead of empty cards
+    if (loading) return <Spinner animation="border" role="status" variant="danger">
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner>;
 
     //capitalises the first letter of the name
     const pokemonName = pokemonData.name[0].toUpperCase() + pokemonData.name.slice(1);
