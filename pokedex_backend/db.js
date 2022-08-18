@@ -9,7 +9,6 @@ const Pokemon = new mongoose.Schema ({
     pokedexId: {
         type: Number,
         required: true,
-        unique: true
     }
 });
 

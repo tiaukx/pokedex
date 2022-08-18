@@ -16,9 +16,13 @@ router.get('/read/:id', (req, res, next) => {
 
 router.post('/create', (req, res, next) => {
     const newPokemon = new Pokemon({name: req.body.name, pokedexId: req.body.pokedexId});
+    console.log(newPokemon);
     newPokemon.save()
         .then((result) => res.status(201).send('successful'))
-        .catch((err) => next(err));
+        .catch((err) => { 
+            console.log(err.message)
+            next(err)
+        });
 });
 
 //deletes records based on ID parameter

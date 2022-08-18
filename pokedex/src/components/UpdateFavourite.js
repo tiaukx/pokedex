@@ -12,7 +12,7 @@ const AddNewFave = (props) => {
         axios.get('http://localhost:1995/pokemon/readAll')
             .then(res => setFaves(res.data))
             .catch(err => console.error(err));
-    }, []);
+    }, [faves]);
 
     const inFaves = faves.find(element => element.pokedexId === props.id)
 
