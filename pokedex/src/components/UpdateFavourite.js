@@ -36,7 +36,8 @@ const AddNewFave = (props) => {
 
         if (addRequest === false) {
             axios.post('http://localhost:1995/pokemon/create', {
-                'name': props.name
+                'name': props.name,
+                'pokedexId': props.id
             })
                 .then((res) => {
                     console.log(res);

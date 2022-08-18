@@ -1,7 +1,6 @@
 import { Button, Card, Modal, Container, Row, Col } from "react-bootstrap";
 import { useState, useEffect } from "react";
 
-import PropTypes from 'prop-types';
 import axios from "axios";
 
 import bugIcon from '../pokemon-type-icons/bug-icon.png';
@@ -35,15 +34,15 @@ const Pokemon = (props) => {
 
     useEffect(() => {
         const getPokemon = async () => {
-            //use the name prop to get expanded details of the pokemon
-            const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${props.name}`);
+            //use the id prop to get expanded details of the pokemon
+            const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${props.id}`);
             setPokemonData(res.data);
             //once loaded, gets rid of loading symbol and returns the completed card
             setLoading(false);
         }
         //call the getPokemon function we used above
         getPokemon();
-    }, [props.name])
+    }, [props.id])
 
     //object to contain images of icons for each type
     const pokemonIcon = {
@@ -71,7 +70,7 @@ const Pokemon = (props) => {
     if (loading) return <h4><i className="fa-solid fa-spinner"></i></h4>;
 
     //capitalises the first letter of the name
-    const pokemonName = props.name[0].toUpperCase() + props.name.slice(1);
+    const pokemonName = pokemonData.name[0].toUpperCase() + pokemonData.name.slice(1);
 
     //gets the types from the pokemon
     const types = pokemonData.types.map(item => {
@@ -128,7 +127,7 @@ const Pokemon = (props) => {
                     </Row>
                     <Row className="m-auto">
                         <Col xs={4}>
-                            <UpdateFavourite name={props.name} />
+                            <UpdateFavourite id={pokemonData.id} name={pokemonData.name} />
                         </Col>
                         <Col >
                             <Button onClick={handleShow}>See More</Button>
@@ -198,7 +197,3 @@ const Pokemon = (props) => {
 };
 
 export default Pokemon;
-
-Pokemon.propTypes = {
-    name: PropTypes.string.isRequired
-};

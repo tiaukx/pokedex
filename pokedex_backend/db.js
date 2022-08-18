@@ -5,6 +5,11 @@ const Pokemon = new mongoose.Schema ({
         type: String,
         required: true,
         unique: true
+    },
+    pokedexId: {
+        type: Number,
+        required: true,
+        unique: true
     }
 });
 

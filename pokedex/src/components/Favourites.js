@@ -18,10 +18,11 @@ const Favourites = () => {
             <Container id='fullPokemonList' className="d-flex vw-100">
                 <Row className="m-auto">
                     {
-                        faves.map((pokemons) => <Pokemon key={pokemons.name} name={pokemons.name}/>)
+                        faves.map((pokemons) => <Pokemon key={pokemons.pokedexId} id={pokemons.pokedexId} name={pokemons.name} />)
                     }
                 </Row>
             </Container>
+            {/* {console.log(faves)} */}
         </>
     )
 }

@@ -15,7 +15,7 @@ router.get('/read/:id', (req, res, next) => {
 });
 
 router.post('/create', (req, res, next) => {
-    const newPokemon = new Pokemon({name: req.body.name});
+    const newPokemon = new Pokemon({name: req.body.name, pokedexId: req.body.pokedexId});
     newPokemon.save()
         .then((result) => res.status(201).send('successful'))
         .catch((err) => next(err));
