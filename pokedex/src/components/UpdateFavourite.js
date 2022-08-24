@@ -5,7 +5,6 @@ import { Button } from 'react-bootstrap';
 const AddNewFave = (props) => {
 
     const [faves, setFaves] = useState([]);
-    // const [dbId, setDbId] = useState('');
 
     //Gets the data of all pokemon currently logged as favourites
     useEffect(() => {
@@ -14,7 +13,7 @@ const AddNewFave = (props) => {
             .catch(err => console.error(err));
     }, [faves]);
 
-    const inFaves = faves.find(element => element.pokedexId === props.id)
+    const inFaves = faves.find(element => element.pokedexId === props.id);
 
     const handleClick = (e) => {
         e.preventDefault();
