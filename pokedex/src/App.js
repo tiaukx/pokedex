@@ -13,7 +13,7 @@ function App() {
       <header className="App-header">
         <Navi />
       </header>
-      <body>
+      <body className="app-body">
         <BrowserRouter>
           <Routes>
             <Route exact path="/" element={<Home />} />

@@ -8,24 +8,22 @@ const PokemonModal = (props) => {
         <>
             {/* when user clicks on card will load up more details about pokemon */}
             <Modal show={show} size='xl' onHide={handleShow} centered dialogClassName="Modal">
-                <Modal.Header>
+                <Modal.Header style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                     <Modal.Title>
-                        <div className="modal-title">
-                            <div className="modal-img-name">
-                                <div className="modal-name number" >
-                                    #{pokemonData.id} {pokemonName}
-                                </div>
-                            </div>
+                        <div className="modal-name modal-title number" >
+                            #{pokemonData.id} {pokemonName}
                         </div>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Container id='pokemonInfo' className="fluid">
                         <Row className='m-auto'>
-                            <Col>
-                                <div>
-                                    <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonData.id}.png`} alt={pokemonName} style={{ width: 'inherit', border: '5px solid black' }} />
+                            <Col style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                <br />
+                                <div className='pokemon-image'>
+                                    <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonData.id}.png`} alt={pokemonName} style={{ width: '25rem', background: '#f2f2f2' }} />
                                 </div>
+                                <br />
                             </Col>
                             <Col className='pokemonInfo'>
                                 <Row className="m-auto description">

@@ -1,4 +1,3 @@
-import { Button, Card, Modal, Container, Row, Col, Spinner } from "react-bootstrap";
 import { useState, useEffect } from "react";
 
 import axios from "axios";
@@ -74,9 +73,8 @@ const Pokemon = (props) => {
     };
 
     //whilst loading returns a loading symbol animation instead of empty cards
-    if (loading) return <Spinner animation="border" role="status" variant="danger">
-        <span className="visually-hidden">Loading...</span>
-    </Spinner>;
+    //Fails to load cards without this
+    if (loading) return <span className="visually-hidden">Loading...</span>
 
     //capitalises the first letter of the name
     const pokemonName = pokemonData.name[0].toUpperCase() + pokemonData.name.slice(1);

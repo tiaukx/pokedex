@@ -30,7 +30,6 @@ const PokemonList = () => {
             setPokemon(pokemonList)
             //sets total results length for pagination
             setTotalResults(pokemonList.length)
-            return pokemonList;
         }
         pokeId();
     }, [id]);
@@ -57,7 +56,7 @@ const PokemonList = () => {
             <GenFilter updateGen={updateGen} id={id} />
 
             <Container id='fullPokemonList' className="d-flex vw-100">
-                <Row className="m-auto">
+                <Row className="m-auto" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                     {
                         currentPokemon.map((pokemons) => <Pokemon key={pokemons} id={pokemons} />)
                     }
