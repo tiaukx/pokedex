@@ -21,12 +21,14 @@ import psychicIcon from '../pokemon-type-icons/psychic-icon.png';
 import rockIcon from '../pokemon-type-icons/rock-icon.png';
 import steelIcon from '../pokemon-type-icons/steel-icon.png';
 import waterIcon from '../pokemon-type-icons/water-icon.png';
-import UpdateFavourite from "./UpdateFavourite";
+import PokemonCard from "./PokemonCard";
+import PokemonModal from "./PokemonModal";
 
 
 const Pokemon = (props) => {
 
     const [pokemonData, setPokemonData] = useState({});
+    const [evoChain, setEvoChain] = useState({});
     const [loading, setLoading] = useState(true);
 
     const [show, setShow] = useState(false);
@@ -37,6 +39,11 @@ const Pokemon = (props) => {
             //use the id prop to get expanded details of the pokemon
             const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${props.id}`);
             setPokemonData(res.data);
+
+            //uses the id prop to get evolution chain
+            const evoInfo = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${props.id}`)
+            setEvoChain(evoInfo.data);
+
             //once loaded, gets rid of loading symbol and returns the completed card
             setLoading(false);
         }
@@ -73,6 +80,15 @@ const Pokemon = (props) => {
 
     //capitalises the first letter of the name
     const pokemonName = pokemonData.name[0].toUpperCase() + pokemonData.name.slice(1);
+
+    //gets pokemon description in English and from a specific game version
+    let pokeDesc = '';
+
+    for (let i = 0; i < evoChain.flavor_text_entries.length; i++) {
+        if (evoChain.flavor_text_entries[i].language.name === 'en' && evoChain.flavor_text_entries[i].version.name === 'sword') {
+            pokeDesc = evoChain.flavor_text_entries[i].flavor_text
+        }
+    }
 
     //gets the types from the pokemon
     const types = pokemonData.types.map(item => {
@@ -366,128 +382,20 @@ const Pokemon = (props) => {
     //intialise height and weight of pokemon
     let height;
     let weight;
-    //convert to string to allow manipulation os string to add a . in right place for measurements
+    //convert to string to allow manipulation to string to add a . in right place for measurements
     height = pokemonData.height.toString();
     weight = pokemonData.weight.toString();
+    //adds a . as the 2nd last character of string to display accurate measurements
+    height = height.substring(0, height.length - 1) + '.' + height.substring(height.length - 1);
+    weight = weight.substring(0, weight.length - 1) + '.' + weight.substring(weight.length - 1)
+    //if string length === 2 add a 0 to the beginning of string
+    if (height.length === 2) { height = '0' + height } 
+    if (weight.length === 2) { weight = '0' + weight } 
 
     return (
         <>
-            <Card style={{ width: '16rem', border: 'black' }} className='pulse-card'>
-                <Card.Img variant='top' src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonData.id}.png`} style={{ background: '#f2f2f2' }} />
-                <Card.Header></Card.Header>
-                <Card.Body>
-                    <Row className="m-auto">
-                        <h5>{`#${pokemonData.id}`} {pokemonName}</h5>
-                    </Row>
-                    <Row className="m-auto">
-                        <p className="types">
-                            {/* gets the icon for the type of the pokemon via the pokemonIcon object */}
-                            <img className="type-icon" src={pokemonIcon[type1]} alt={`${type1}`} style={{ width: '2rem' }} />{' '}
-                            {type1[0].toUpperCase() + type1.slice(1)}{' '}
-                            {/* if type1 and type2 are the same, don't render type2 to screen */}
-                            {type1 === type2 ? <></> : <img className="type-icon" src={pokemonIcon[type2]} alt={`${type2}`} style={{ width: '2rem' }} />}{' '}
-                            {(type1 === type2) ? <></> : type2[0].toUpperCase() + type2.slice(1)}
-                        </p>
-                    </Row>
-                    <Row className="m-auto">
-                        <Col xs={4}>
-                            <UpdateFavourite id={pokemonData.id} name={pokemonData.name} />
-                        </Col>
-                        <Col >
-                            <Button onClick={handleShow}>See More</Button>
-                        </Col>
-                    </Row>
-                </Card.Body>
-            </Card>
-
-            {/* when user clicks on card will load up more details about pokemon */}
-            <Modal show={show} size='xl' onHide={handleShow} centered dialogClassName="Modal">
-                <Modal.Header>
-                    <Modal.Title>
-                        <div className="modal-title">
-                            <div className="modal-img-name">
-                                <div className="modal-name number" >
-                                    #{pokemonData.id} {pokemonName}
-                                </div>
-                            </div>
-                        </div>
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Container id='pokemonInfo' className="fluid">
-                        <Row className='m-auto'>
-                            <Col>
-                                <div>
-                                    <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonData.id}.png`} alt={pokemonName} style={{ width: 'inherit', border: '5px solid black' }} />
-                                </div>
-                            </Col>
-                            <Col className='pokemonInfo'>
-                                <Row className='m-auto'>
-                                    <Col>
-                                        <div className="type">
-                                            <h4>Type</h4>
-                                            {/* gets the icon for the type of the pokemon via the pokemonIcon object */}
-                                            <img className="type-icon" src={pokemonIcon[type1]} alt={`${type1}`} style={{ width: '2rem' }} />{' '}
-                                            {type1[0].toUpperCase() + type1.slice(1)}{' '}{<br />}
-                                            {/* if type1 and type2 are the same, don't render type2 to screen */}
-                                            {type1 === type2 ? <></> : <img className="type-icon" src={pokemonIcon[type2]} alt={`${type2}`} style={{ width: '2rem' }} />}{' '}
-                                            {(type1 === type2) ? <></> : type2[0].toUpperCase() + type2.slice(1)}
-                                        </div>
-                                        {<br />}
-                                        <div className="weaknesses">
-                                            <h4>Weaknesses</h4>
-                                            {superEffective.map(item => {
-                                                return <>
-                                                    <img className="type-icon" src={pokemonIcon[item]} alt={`${item}`} style={{ width: '2rem' }} />{' '}
-                                                    {item[0].toUpperCase() + item.slice(1)}{<br />}
-                                                </>
-                                            })
-                                            }
-                                        </div>
-                                    </Col>
-                                    <Col>
-                                        <div className="stats">
-                                            <h4>Stats</h4>
-                                            <p>Hit Points: {pokemonData.stats[0].base_stat}</p>
-                                            <p>Attack: {pokemonData.stats[1].base_stat}</p>
-                                            <p>Defense: {pokemonData.stats[2].base_stat}</p>
-                                            <p>Special Attack: {pokemonData.stats[3].base_stat}</p>
-                                            <p>Special Defense: {pokemonData.stats[4].base_stat}</p>
-                                            <p>Speed: {pokemonData.stats[5].base_stat}</p>
-                                        </div>
-                                    </Col>
-                                    <Col>
-                                        <div>
-                                            <h4>Height</h4>
-                                            <p>{height.substring(0, height.length - 1) + '.' + height.substring(height.length - 1)} m</p>
-                                            <h4>Weight</h4>
-                                            <p>{weight.substring(0, weight.length - 1) + '.' + weight.substring(weight.length - 1)} kg</p>
-                                        </div>
-                                        <br />
-                                        <div className="abilities">
-                                            <h4>Abilities</h4>
-                                            <p>Ability 1: {ability1[0].toUpperCase() + ability1.slice(1)}</p>
-                                            {ability2 === 'N/A' ? <></> : <p>Ability 2: {ability2[0].toUpperCase() + ability2.slice(1)}</p>}
-                                            {ability3 === 'N/A' ? <></> : <p>Ability 2: {ability3[0].toUpperCase() + ability3.slice(1)}</p>}
-                                        </div>
-                                    </Col>
-                                </Row>
-                                <Row className="m-auto">
-                                    <div className="evolution-chart">
-                                        <h4>Evolutions</h4>
-
-                                    </div>
-                                </Row>
-                            </Col>
-
-                        </Row>
-
-                    </Container>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant='primary' onClick={handleShow}>Close</Button>
-                </Modal.Footer>
-            </Modal>
+            <PokemonCard pokemonData={pokemonData} pokemonName={pokemonName} type1={type1} type2={type2} pokemonIcon={pokemonIcon} handleShow={handleShow} />
+            <PokemonModal pokemonData={pokemonData} pokemonName={pokemonName} pokeDesc={pokeDesc} type1={type1} type2={type2} pokemonIcon={pokemonIcon} superEffective={superEffective} height={height} weight={weight} ability1={ability1} ability2={ability2} ability3={ability3} show={show} handleShow={handleShow}/>
         </>
     );
 };
