@@ -14,7 +14,7 @@ const PokemonList = () => {
     const [postsPerPage] = useState(20);
     const [id, setId] = useState({
         startId: 1,
-        endId: 898,
+        endId: 905,
     })
 
     //automatically updates pokemon list when filtered by generation 

@@ -320,24 +320,24 @@ const Pokemon = (props) => {
 
     //Pushes to not very Effective array
     //not used currently but available for future use
-    // normalWeakness >= 2 ? notVeryEffective.push('normal') : notVeryEffective.push();
-    // fireWeakness >= 2 ? notVeryEffective.push('fire') : notVeryEffective.push();
-    // waterWeakness >= 2 ? notVeryEffective.push('water') : notVeryEffective.push();
-    // grassWeakness >= 2 ? notVeryEffective.push('grass') : notVeryEffective.push();
-    // electricWeakness >= 2 ? notVeryEffective.push('electric') : notVeryEffective.push();
-    // iceWeakness >= 2 ? notVeryEffective.push('ice') : notVeryEffective.push();
-    // fightingWeakness >= 2 ? notVeryEffective.push('fighting') : notVeryEffective.push();
-    // poisonWeakness >= 2 ? notVeryEffective.push('poison') : notVeryEffective.push();
-    // groundWeakness >= 2 ? notVeryEffective.push('ground') : notVeryEffective.push();
-    // flyingWeakness >= 2 ? notVeryEffective.push('flying') : notVeryEffective.push();
-    // psychicWeakness >= 2 ? notVeryEffective.push('psychic') : notVeryEffective.push();
-    // bugWeakness >= 2 ? notVeryEffective.push('bug') : notVeryEffective.push();
-    // rockWeakness >= 2 ? notVeryEffective.push('rock') : notVeryEffective.push();
-    // ghostWeakness >= 2 ? notVeryEffective.push('ghost') : notVeryEffective.push();
-    // dragonWeakness >= 2 ? notVeryEffective.push('dragon') : notVeryEffective.push();
-    // darkWeakness >= 2 ? notVeryEffective.push('dark') : notVeryEffective.push();
-    // steelWeakness >= 2 ? notVeryEffective.push('steel') : notVeryEffective.push();
-    // fairyWeakness >= 2 ? notVeryEffective.push('fairy') : notVeryEffective.push();
+    // normalWeakness < 1 ? notVeryEffective.push('normal') : notVeryEffective.push();
+    // fireWeakness < 1 ? notVeryEffective.push('fire') : notVeryEffective.push();
+    // waterWeakness < 1 ? notVeryEffective.push('water') : notVeryEffective.push();
+    // grassWeakness < 1 ? notVeryEffective.push('grass') : notVeryEffective.push();
+    // electricWeakness < 1 ? notVeryEffective.push('electric') : notVeryEffective.push();
+    // iceWeakness < 1 ? notVeryEffective.push('ice') : notVeryEffective.push();
+    // fightingWeakness < 1 ? notVeryEffective.push('fighting') : notVeryEffective.push();
+    // poisonWeakness < 1 ? notVeryEffective.push('poison') : notVeryEffective.push();
+    // groundWeakness < 1 ? notVeryEffective.push('ground') : notVeryEffective.push();
+    // flyingWeakness < 1 ? notVeryEffective.push('flying') : notVeryEffective.push();
+    // psychicWeakness < 1 ? notVeryEffective.push('psychic') : notVeryEffective.push();
+    // bugWeakness < 1 ? notVeryEffective.push('bug') : notVeryEffective.push();
+    // rockWeakness < 1 ? notVeryEffective.push('rock') : notVeryEffective.push();
+    // ghostWeakness < 1 ? notVeryEffective.push('ghost') : notVeryEffective.push();
+    // dragonWeakness < 1 ? notVeryEffective.push('dragon') : notVeryEffective.push();
+    // darkWeakness < 1 ? notVeryEffective.push('dark') : notVeryEffective.push();
+    // steelWeakness < 1 ? notVeryEffective.push('steel') : notVeryEffective.push();
+    // fairyWeakness < 1 ? notVeryEffective.push('fairy') : notVeryEffective.push();
 
     //pushes to immune array
     //not used currently but available for future use
@@ -387,13 +387,13 @@ const Pokemon = (props) => {
     height = height.substring(0, height.length - 1) + '.' + height.substring(height.length - 1);
     weight = weight.substring(0, weight.length - 1) + '.' + weight.substring(weight.length - 1)
     //if string length === 2 add a 0 to the beginning of string
-    if (height.length === 2) { height = '0' + height } 
-    if (weight.length === 2) { weight = '0' + weight } 
+    if (height.length === 2) { height = '0' + height }
+    if (weight.length === 2) { weight = '0' + weight }
 
     return (
         <>
             <PokemonCard pokemonData={pokemonData} pokemonName={pokemonName} type1={type1} type2={type2} pokemonIcon={pokemonIcon} handleShow={handleShow} />
-            <PokemonModal pokemonData={pokemonData} pokemonName={pokemonName} pokeDesc={pokeDesc} type1={type1} type2={type2} pokemonIcon={pokemonIcon} superEffective={superEffective} height={height} weight={weight} ability1={ability1} ability2={ability2} ability3={ability3} show={show} handleShow={handleShow}/>
+            <PokemonModal pokemonData={pokemonData} pokemonName={pokemonName} pokeDesc={pokeDesc} type1={type1} type2={type2} pokemonIcon={pokemonIcon} superEffective={superEffective} height={height} weight={weight} ability1={ability1} ability2={ability2} ability3={ability3} show={show} handleShow={handleShow} />
         </>
     );
 };

@@ -13,8 +13,8 @@ const PokemonCard = (props) => {
                     <Row className="m-auto" >
                         <h5 style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>{`#${pokemonData.id}`} {pokemonName}</h5>
                     </Row>
-                    <Row className="m-auto ">
-                        <div className="types" style={{ display: "flex", justifyContent: "space-evenly"}}>
+                    <Row className="m-auto " >
+                        <div className="types" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                             {/* gets the icon for the type of the pokemon via the pokemonIcon object */}
                             <p className='type1'>
                                 <img className="type-icon " src={pokemonIcon[type1]} alt={`${type1}`} style={{ width: '2rem' }} />{' '}
@@ -22,7 +22,7 @@ const PokemonCard = (props) => {
                             </p>
                             <p className='type2'>
                                 {/* if type1 and type2 are the same, don't render type2 to screen */}
-                                {type1 === type2 ? <></> : <img className="type-icon" src={pokemonIcon[type2]} alt={`${type2}`} style={{ width: '2rem' }} />}{' '}
+                                {type1 === type2 ? <></> : <><img className="type-icon" src={pokemonIcon[type2]} alt={`${type2}`} style={{ width: '2rem' }} /></>}{' '}
                                 {(type1 === type2) ? <></> : type2[0].toUpperCase() + type2.slice(1)}
                             </p>
                         </div>
