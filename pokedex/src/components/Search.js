@@ -10,37 +10,49 @@ const Search = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [getPokemonName, setPokemonName] = useState('');
     const [getPokemonId, setPokemonId] = useState()
-    const [pokemonList, setPokemonList] = useState([])
     const limit = 905;
     const pokemonArr = [];
+    const searchResults = [];
 
     useEffect(() => {
 
         const fetchPosts = async () => {
-            const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}`);
-            setPokemonList(res.data.results);
+            const resName = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}`);
+            setPokemonName(resName.data.results);
+
+            //Works to display 1 pokemon when search term is an ID or complete name
+            const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${searchTerm}`);
+            setPokemonName(res.data.name);
+            setPokemonId(res.data.id)
         }
         fetchPosts();
 
         const createList = async () => {
             for (let i = 0; i < limit; i++) {
-                pokemonArr.push({ name: pokemonList[i].name, id: i + 1 })
+                pokemonArr.push({ name: getPokemonName[i].name, id: i + 1 })
             }
         }
         createList()
-        
+
     }, [searchTerm]);
 
     const handleSubmit = (e) => {
-        e.preventDefault();
         setSearchTerm(e.target.value);
+        console.log('TEST2');
     }
 
     const handleChange = (e) => {
         setSearchTerm(e.target.value);
+        console.log('TEST1');
     }
 
-    console.log(pokemonArr)
+    // console.log(pokemonArr)
+
+    for (let poke of pokemonArr) {
+        if (poke.name.toUpperCase().startsWith(searchTerm.toUpperCase()) || poke.id.toString().startsWith(searchTerm)) {
+            searchResults.push(poke);
+        }
+    }
 
     return (
         <>
@@ -63,14 +75,16 @@ const Search = () => {
                     </Container>
             } */}
 
-            {pokemonArr.filter(item => item.name.toUpperCase().startsWith(searchTerm.toUpperCase()) || item.id.toString().startsWith(searchTerm))
-            .map(item =>
-                <Container id='pokemonResult' className="d-flex vw-100">
-                    <Row className="m-auto">
-                        <Pokemon key={item.id} name={item.name} id={item.id} />
-                    </Row>
-                </Container>)}
-                
+            {
+                searchTerm === ''
+                    ? <></>
+                    : <Container id='pokemonResult' className="d-flex vw-100">
+                        <Row className="m-auto">
+                            {searchResults.map((item) => <Pokemon key={item.id} id={item.id} />)}
+                        </Row>
+                    </Container>
+            }
+
         </>
     )
 };

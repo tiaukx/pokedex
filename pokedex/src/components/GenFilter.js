@@ -31,15 +31,15 @@ const GenFilter = (props) => {
                     <Button className='genButton' variant="danger" onClick={() => props.updateGen(722, 809)} >Gen 7</Button>{' '}
                 </Col>
                 <Col md='1' >
-                    <Button className='genButton' variant="danger" onClick={() => props.updateGen(810, 898)} >Gen 8</Button>
+                    <Button className='genButton' variant="danger" onClick={() => props.updateGen(810, 905)} >Gen 8</Button>
                 </Col>
-                <Col md='1' >
-                    <Button className='genButton' variant="danger" onClick={() => props.updateGen(899, 905)} >Gen 9</Button>
-                </Col>
+                {/* <Col md='1' >
+                    <Button className='genButton' variant="danger" onClick={() => props.updateGen(906, 907)} >Gen 9</Button>
+                </Col> */}
                 <Col md='1' >
                     {/* generates a reset button that resets the filters to display all pokemon when a filter button has been pressed */}
                     {
-                        props.id.startId !== 1 || props.id.endId !== 898
+                        props.id.startId !== 1 || props.id.endId !== 905
                             ? <Button className='genButton' variant="danger" onClick={() => props.updateGen(1, 905)} >Reset</Button>
                             : <></>
                     }

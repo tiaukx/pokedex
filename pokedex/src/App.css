@@ -19,3 +19,9 @@
 .app-body {
   background-image: linear-gradient(150deg, #dedede 25%, #ededed 25%, #ededed 50%, #dedede 50%, #dedede 75%, #ededed 75%, #ededed 100%);
 }
+
+.search-textbox {
+  height: 40px;
+  width: 200px;
+  border-color: #dedede;
+}
