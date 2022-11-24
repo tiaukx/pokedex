@@ -8,31 +8,34 @@ import SearchBar from "./SearchBar";
 const Search = () => {
 
     const [searchTerm, setSearchTerm] = useState('');
-    const [getPokemonName, setPokemonName] = useState('');
-    const [getPokemonId, setPokemonId] = useState()
+    // const [getPokemonName, setPokemonName] = useState('');
+    // const [getPokemonId, setPokemonId] = useState()
+    const [getAllPokemon, setAllPokemon] = useState([]);
+    const [searchResults, setSearchResults] = useState([]);
+
     const limit = 905;
     const pokemonArr = [];
-    const searchResults = [];
+    // const searchResults = [];
 
     useEffect(() => {
 
         const fetchPosts = async () => {
             const resName = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}`);
-            setPokemonName(resName.data.results);
+            setAllPokemon(resName.data.results);
 
             //Works to display 1 pokemon when search term is an ID or complete name
-            const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${searchTerm}`);
-            setPokemonName(res.data.name);
-            setPokemonId(res.data.id)
-        }
-        fetchPosts();
+            // const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${searchTerm}`);
+            // setPokemonName(res.data.name);
+            // setPokemonId(res.data.id)
 
-        const createList = async () => {
+            //Populates pokemonArr when user types into search box
             for (let i = 0; i < limit; i++) {
-                pokemonArr.push({ name: getPokemonName[i].name, id: i + 1 })
+                pokemonArr.push({ name: getAllPokemon[i].name, id: i + 1 })
             }
+
         }
-        createList()
+
+        fetchPosts();
 
     }, [searchTerm]);
 
@@ -46,13 +49,19 @@ const Search = () => {
         console.log('TEST1');
     }
 
-    // console.log(pokemonArr)
-
-    for (let poke of pokemonArr) {
-        if (poke.name.toUpperCase().startsWith(searchTerm.toUpperCase()) || poke.id.toString().startsWith(searchTerm)) {
-            searchResults.push(poke);
+    const handleSearch = () => {
+        if (searchTerm !== '' && pokemonArr.length !== 0) {
+            console.log('TEST4')
+            for (let i = 0; i < pokemonArr.length; i++) {
+                console.log('TEST3')
+                if (pokemonArr[i].name.toUpperCase().startsWith(searchTerm.toUpperCase()) || pokemonArr[i].id.toString().startsWith(searchTerm)) {
+                    setSearchResults(pokemonArr[i]);
+                }
+            }
         }
     }
+
+    handleSearch();
 
     return (
         <>
@@ -80,7 +89,7 @@ const Search = () => {
                     ? <></>
                     : <Container id='pokemonResult' className="d-flex vw-100">
                         <Row className="m-auto">
-                            {searchResults.map((item) => <Pokemon key={item.id} id={item.id} />)}
+                            {searchResults.map((item) => <Pokemon key={item.id} name={item.name} id={item.id} />)}
                         </Row>
                     </Container>
             }
