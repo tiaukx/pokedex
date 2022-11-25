@@ -1,4 +1,4 @@
-import { Form, Row, Col, Container, Button } from 'react-bootstrap';
+import { Row, Col, Container, Button } from 'react-bootstrap';
 
 const SearchBar = (props) => {
 
@@ -11,7 +11,7 @@ const SearchBar = (props) => {
                             <input type={'text'} className='search-textbox' placeholder='Name or Number' onChange={props.handleChange} onSubmit={props.handleSubmit} />
                         </Col>
                         <Col>
-                            <Button className='search-button' onClick={() => props.handleSubmit} ><i className="fa-solid fa-magnifying-glass"></i></Button>
+                            <Button className='search-button' ><i className="fa-solid fa-magnifying-glass"></i></Button>
                         </Col>
                     </Row>
             </Container>

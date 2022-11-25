@@ -12,7 +12,6 @@ const Search = () => {
     // const [getPokemonId, setPokemonId] = useState()
 
     const [getAllPokemon, setAllPokemon] = useState([]);
-    const [searchResults, setSearchResults] = useState([]);
 
     const limit = 905;
 
@@ -52,33 +51,6 @@ const Search = () => {
         setSearchTerm(e.target.value);
     }
 
-    const handleSearch = () => {
-        //If search term is not an empty string...
-        if (searchTerm !== '') {
-            //Loop through list of pokemon
-            for (let i = 0; i < limit; i++) {
-                if (getAllPokemon[i].name.toUpperCase().startsWith(searchTerm.toUpperCase()) || getAllPokemon[i].id.toString().startsWith(searchTerm)) {
-                    //If pokemon name or ID starts with search term...
-                    if (!searchResults.includes(getAllPokemon[i])) {
-                        //If search results does not already contain pokemon
-                        setSearchResults(oldArr => [...oldArr, getAllPokemon[i]])
-                    } else if (searchResults.includes(getAllPokemon[i]) && !getAllPokemon[i].name.toUpperCase().startsWith(searchTerm.toUpperCase())) {
-                        //remove from search results if already in search results & pokemon name does NOT begin with search term
-                        
-                    } else if (searchResults.includes(getAllPokemon[i]) && !getAllPokemon[i].id.toString().startsWith(searchTerm)) {
-                        //remove from search results if already in search results & pokemon ID does NOT begin with search term
-
-                    }
-                }
-            }
-        } else if (searchTerm === '' && searchResults.length !== 0) {
-            //If search term is empty string & search results already contains a value[s], reset searchResults to empty array
-            setSearchResults([]);
-        }
-    }
-
-    handleSearch();
-
     return (
         <>
             <br />
@@ -102,7 +74,15 @@ const Search = () => {
 
             <Container id='pokemonResult' className="d-flex vw-100">
                 <Row className="m-auto">
-                    {searchResults.map((item) => <Pokemon key={item.id} name={item.name} id={item.id} />)}
+                    {
+                        searchTerm === ''
+                            ? <></>
+                            : <Container id='pokemonResult' className="d-flex vw-100">
+                                <Row className="m-auto">
+                                    {getAllPokemon.filter(poke => poke.name.toUpperCase().startsWith(searchTerm.toUpperCase()) || poke.id.toString().startsWith(searchTerm))
+                                        .map((item) => <Pokemon key={item.id} name={item.name} id={item.id} />)}                                </Row>
+                            </Container>
+                    }
                 </Row>
             </Container>
 
