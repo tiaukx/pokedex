@@ -42,9 +42,8 @@ const Search = () => {
 
     }, []);
 
-    // console.log(getAllPokemon)
-
     const handleSubmit = (e) => {
+        //Doesn't work yet
         setSearchTerm(e.target.value);
         console.log('TEST2');
     }
@@ -65,14 +64,15 @@ const Search = () => {
                         setSearchResults(oldArr => [...oldArr, getAllPokemon[i]])
                     } else if (searchResults.includes(getAllPokemon[i]) && !getAllPokemon[i].name.toUpperCase().startsWith(searchTerm.toUpperCase())) {
                         //remove from search results if already in search results & pokemon name does NOT begin with search term
-
+                        
                     } else if (searchResults.includes(getAllPokemon[i]) && !getAllPokemon[i].id.toString().startsWith(searchTerm)) {
                         //remove from search results if already in search results & pokemon ID does NOT begin with search term
-                        
-                    } 
+
+                    }
                 }
             }
         } else if (searchTerm === '' && searchResults.length !== 0) {
+            //If search term is empty string & search results already contains a value[s], reset searchResults to empty array
             setSearchResults([]);
         }
     }
@@ -100,15 +100,11 @@ const Search = () => {
                     </Container>
             } */}
 
-            {
-                searchTerm === ''
-                    ? <></>
-                    : <Container id='pokemonResult' className="d-flex vw-100">
-                        <Row className="m-auto">
-                            {searchResults.map((item) => <Pokemon key={item.id} name={item.name} id={item.id} />)}
-                        </Row>
-                    </Container>
-            }
+            <Container id='pokemonResult' className="d-flex vw-100">
+                <Row className="m-auto">
+                    {searchResults.map((item) => <Pokemon key={item.id} name={item.name} id={item.id} />)}
+                </Row>
+            </Container>
 
         </>
     )
