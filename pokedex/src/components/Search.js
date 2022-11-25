@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 import { useState, useEffect } from "react";
 import { Container, Row } from 'react-bootstrap';
 
@@ -10,34 +10,39 @@ const Search = () => {
     const [searchTerm, setSearchTerm] = useState('');
     // const [getPokemonName, setPokemonName] = useState('');
     // const [getPokemonId, setPokemonId] = useState()
+
     const [getAllPokemon, setAllPokemon] = useState([]);
     const [searchResults, setSearchResults] = useState([]);
 
     const limit = 905;
-    const pokemonArr = [];
-    // const searchResults = [];
 
     useEffect(() => {
 
+        //Works to display 1 pokemon when search term is an ID or complete name
+        // const fetchPosts = async () => {
+        //     // const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${searchTerm}`);
+        //     // setPokemonName(res.data.name);
+        //     // setPokemonId(res.data.id)
+        // }
+        // fetchPosts();
+
+        //Works to display multiple pokemon when search term is partial ID or partial
         const fetchPosts = async () => {
-            const resName = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}`);
-            setAllPokemon(resName.data.results);
-
-            //Works to display 1 pokemon when search term is an ID or complete name
-            // const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${searchTerm}`);
-            // setPokemonName(res.data.name);
-            // setPokemonId(res.data.id)
-
-            //Populates pokemonArr when user types into search box
-            for (let i = 0; i < limit; i++) {
-                pokemonArr.push({ name: getAllPokemon[i].name, id: i + 1 })
-            }
-
+            const url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}`;
+            const res = await fetch(url);
+            const data = await res.json();
+            const pokemon = data.results.map((data, index) => ({
+                name: data.name,
+                id: index + 1
+            }))
+            setAllPokemon(pokemon);
         }
 
         fetchPosts();
 
-    }, [searchTerm]);
+    }, []);
+
+    // console.log(getAllPokemon)
 
     const handleSubmit = (e) => {
         setSearchTerm(e.target.value);
@@ -46,18 +51,29 @@ const Search = () => {
 
     const handleChange = (e) => {
         setSearchTerm(e.target.value);
-        console.log('TEST1');
     }
 
     const handleSearch = () => {
-        if (searchTerm !== '' && pokemonArr.length !== 0) {
-            console.log('TEST4')
-            for (let i = 0; i < pokemonArr.length; i++) {
-                console.log('TEST3')
-                if (pokemonArr[i].name.toUpperCase().startsWith(searchTerm.toUpperCase()) || pokemonArr[i].id.toString().startsWith(searchTerm)) {
-                    setSearchResults(pokemonArr[i]);
+        //If search term is not an empty string...
+        if (searchTerm !== '') {
+            //Loop through list of pokemon
+            for (let i = 0; i < limit; i++) {
+                if (getAllPokemon[i].name.toUpperCase().startsWith(searchTerm.toUpperCase()) || getAllPokemon[i].id.toString().startsWith(searchTerm)) {
+                    //If pokemon name or ID starts with search term...
+                    if (!searchResults.includes(getAllPokemon[i])) {
+                        //If search results does not already contain pokemon
+                        setSearchResults(oldArr => [...oldArr, getAllPokemon[i]])
+                    } else if (searchResults.includes(getAllPokemon[i]) && !getAllPokemon[i].name.toUpperCase().startsWith(searchTerm.toUpperCase())) {
+                        //remove from search results if already in search results & pokemon name does NOT begin with search term
+
+                    } else if (searchResults.includes(getAllPokemon[i]) && !getAllPokemon[i].id.toString().startsWith(searchTerm)) {
+                        //remove from search results if already in search results & pokemon ID does NOT begin with search term
+                        
+                    } 
                 }
             }
+        } else if (searchTerm === '' && searchResults.length !== 0) {
+            setSearchResults([]);
         }
     }
 
