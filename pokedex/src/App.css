@@ -17,11 +17,31 @@
 }
 
 .app-body {
-  background-image: linear-gradient(150deg, #dedede 25%, #ededed 25%, #ededed 50%, #dedede 50%, #dedede 75%, #ededed 75%, #ededed 100%);
+  background-image: linear-gradient(145deg, #333333 7.14%, #3d3d3d 7.14%, #3d3d3d 21.43%, #474747 21.43%, #474747 32.14%, #383838 32.14%, #383838 50%, #333333 50%, #333333 57.14%, #3d3d3d 57.14%, #3d3d3d 71.43%, #474747 71.43%, #474747 82.14%, #383838 82.14%, #383838 100%);
+  min-height: 100vh;
 }
 
 .search-textbox {
+  /* Adjusts sizing of the textbox */
   height: 40px;
-  width: 200px;
+  width: 250px;
+  /* Changes the outline colour of the texbox */
   border-color: #dedede;
+  /* Adds padding to the inside of the textbox */
+  padding: 12px 10px;
+  /* Rounds the corners of the textbox */
+  border-radius: 5px; 
+}
+
+.card-bg {
+  background-image: linear-gradient(150deg, #dedede 25%, #ededed 25%, #ededed 50%, #dedede 50%, #dedede 75%, #ededed 75%, #ededed 100%);
+  border-radius: 10px;
+}
+
+#genFilterBttns {
+  text-align: "center";
+  font-family: "futura";
+  justify-content: "center";
+  align-items: "center";
+  border-radius: "10px";
 }

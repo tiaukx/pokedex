@@ -41,11 +41,11 @@ const Search = () => {
 
     }, []);
 
-    const handleSubmit = (e) => {
-        //Doesn't work yet
-        setSearchTerm(e.target.value);
-        console.log('TEST2');
-    }
+    // const handleSubmit = (e) => {
+    //     //Doesn't work yet
+    //     setSearchTerm(e.target.value);
+    //     console.log('TEST2');
+    // }
 
     const handleChange = (e) => {
         setSearchTerm(e.target.value);
@@ -54,14 +54,17 @@ const Search = () => {
     return (
         <>
             <br />
-            <div className="search-title" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                <h4>Search for a Pokémon</h4>
-            </div>
-            <br />
-            <div className="search-box" style={{ display: "flex" }} >
-                <SearchBar handlesubmit={handleSubmit} handleChange={handleChange} />
-            </div>
-            <br />
+
+            <Container className="" style={{ justifyContent: "center", borderRadius: "10px" }} >
+                {/* <div className="search-title" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                    <h4>Search for a Pokémon</h4>
+                </div> */}
+                <br />
+                <div className="search-box" style={{ display: "flex" }} >
+                    <SearchBar handleChange={handleChange} />
+                </div>
+                <br/>
+            </Container>
             {/* {
                 searchTerm === ''
                     ? <></>
@@ -72,19 +75,18 @@ const Search = () => {
                     </Container>
             } */}
 
-            <Container id='pokemonResult' className="d-flex vw-100">
-                <Row className="m-auto">
-                    {
-                        searchTerm === ''
-                            ? <></>
-                            : <Container id='pokemonResult' className="d-flex vw-100">
-                                <Row className="m-auto">
-                                    {getAllPokemon.filter(poke => poke.name.toUpperCase().startsWith(searchTerm.toUpperCase()) || poke.id.toString().startsWith(searchTerm))
-                                        .map((item) => <Pokemon key={item.id} name={item.name} id={item.id} />)}                                </Row>
-                            </Container>
-                    }
-                </Row>
-            </Container>
+            {
+                searchTerm === ''
+                    ? <></>
+                    : <Container id='searchList' className="d-flex vw-100 card-bg p-2" >
+                        <Row className="m-auto" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+
+                            {getAllPokemon.filter(poke => poke.name.toUpperCase().startsWith(searchTerm.toUpperCase()) || poke.id.toString().startsWith(searchTerm))
+                                .map((item) => <Pokemon key={item.id} name={item.name} id={item.id} />)}
+
+                        </Row>
+                    </Container>
+            }
 
         </>
     )

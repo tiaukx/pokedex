@@ -7,7 +7,7 @@ const PokemonModal = (props) => {
     return (
         <>
             {/* when user clicks on card will load up more details about pokemon */}
-            <Modal show={show} size='xl' onHide={handleShow} centered dialogClassName="Modal">
+            <Modal show={show} size='xl' onHide={handleShow} centered dialogClassName="Modal" style={{fontFamily: "futura"}}>
                 <Modal.Header style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                     <Modal.Title>
                         <div className="modal-name modal-title number" >

@@ -16,11 +16,11 @@ const Favourites = () => {
     return (
         <>
             <br/>
-            <div className="d-flex justify-content-center" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <div className="d-flex justify-content-center text-light" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                 <h4>Favourite Pokémon</h4>
             </div>
             <br/>
-            <Container id='fullPokemonList' className="d-flex vw-100">
+            <Container id='fullPokemonList' className="d-flex vw-100 card-bg p-2">
                 <Row className="m-auto" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                     {
                         faves.map((pokemons) => <Pokemon key={pokemons.pokedexId} id={pokemons.pokedexId} name={pokemons.name} />)

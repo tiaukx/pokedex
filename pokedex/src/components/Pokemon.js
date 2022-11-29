@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 import axios from "axios";
 
+//Icons for types
 import bugIcon from '../pokemon-type-icons/bug-icon.png';
 import darkIcon from '../pokemon-type-icons/dark-icon.png';
 import dragonIcon from '../pokemon-type-icons/dragon-icon.png';
@@ -27,7 +28,7 @@ import PokemonModal from "./PokemonModal";
 const Pokemon = (props) => {
 
     const [pokemonData, setPokemonData] = useState({});
-    const [evoChain, setEvoChain] = useState({});
+    const [pokeSpecies, setPokeSpecies] = useState({});
     const [loading, setLoading] = useState(true);
 
     const [show, setShow] = useState(false);
@@ -41,7 +42,7 @@ const Pokemon = (props) => {
 
             //uses the id prop to get evolution chain
             const evoInfo = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${props.id}`)
-            setEvoChain(evoInfo.data);
+            setPokeSpecies(evoInfo.data);
 
             //once loaded, gets rid of loading symbol and returns the completed card
             setLoading(false);
@@ -82,9 +83,9 @@ const Pokemon = (props) => {
     //gets pokemon description in English and from a specific game version
     let pokeDesc = '';
 
-    for (let i = 0; i < evoChain.flavor_text_entries.length; i++) {
-        if (evoChain.flavor_text_entries[i].language.name === 'en' && evoChain.flavor_text_entries[i].version.name === 'sword') {
-            pokeDesc = evoChain.flavor_text_entries[i].flavor_text
+    for (let i = 0; i < pokeSpecies.flavor_text_entries.length; i++) {
+        if (pokeSpecies.flavor_text_entries[i].language.name === 'en' && pokeSpecies.flavor_text_entries[i].version.name === 'sword') {
+            pokeDesc = pokeSpecies.flavor_text_entries[i].flavor_text
         }
     }
 
