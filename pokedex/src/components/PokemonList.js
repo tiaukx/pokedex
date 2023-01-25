@@ -57,7 +57,7 @@ const PokemonList = () => {
                 <GenFilter updateGen={updateGen} id={id} />
             </Container>
 
-            <Container id='fullPokemonList' className="d-flex vw-100 h-auto card-bg" >
+            <Container id='fullPokemonList' className="d-flex vw-100 h-auto card-bg">
                 <Row className="m-auto p-2" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                     {
                         currentPokemon.map((pokemons) => <Pokemon key={pokemons} id={pokemons} />)
